@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
   =========================================
 */
 app.use('/api/hero', require('./routes/heroRoutes'));
-app.use('/api/vision', require('./routes/VisionRoutes'));
+app.use('/api/vision', require('./routes/visionRoutes'));
 app.use('/api/about', require('./routes/aboutRoutes'));
 app.use('/api/team', require('./routes/teamRoutes'));
 app.use('/api/sectors', require('./routes/sectorRoutes')); // Registered Sectors route

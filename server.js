@@ -48,6 +48,8 @@ app.use('/api/dashboard', require('./routes/dashboardRoutes')); // Dashboard rou
 
 app.use('/api/settings', require('./routes/settingsRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'))
+// Add this inside the "IMPORT & REGISTER ROUTES" section in server.js
+app.use('/api/home-business', require('./routes/homeBusinessRoutes'));
 
 
 const PORT = process.env.PORT || 5000;

@@ -19,8 +19,31 @@ cloudinary.config({
 
 const app = express();
 
-// Middleware
-app.use(cors()); // Allows Frontend (3000) & Admin (3001) access
+// =========================================
+// MIDDLEWARE & CORS CONFIGURATION
+// =========================================
+const allowedOrigins = [
+  'http://localhost:3000', // Local Frontend
+  'http://localhost:3001', // Local Admin
+  'https://admin.sethmogroup.com', // Live Admin Dashboard
+  'https://sethmogroup.com', // Replace with your actual Live Main Website URL
+  'https://www.sethmogroup.com' // Replace with your actual Live Main Website URL
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps, Postman, or curl)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true // Very important if you ever use cookies or secure sessions for login
+}));
+
 app.use(express.json({ limit: '50mb' })); // Support for base64 image uploads
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
@@ -30,8 +53,8 @@ app.get('/', (req, res) => {
 });
 
 /* =========================================
-  IMPORT & REGISTER ROUTES
-  =========================================
+   IMPORT & REGISTER ROUTES
+   =========================================
 */
 app.use('/api/hero', require('./routes/heroRoutes'));
 app.use('/api/vision', require('./routes/visionRoutes'));
@@ -47,8 +70,7 @@ app.use('/api/careers', require('./routes/careerRoutes')); // Registered Careers
 app.use('/api/dashboard', require('./routes/dashboardRoutes')); // Dashboard route for combined data
 
 app.use('/api/settings', require('./routes/settingsRoutes'));
-app.use('/api/auth', require('./routes/authRoutes'))
-// Add this inside the "IMPORT & REGISTER ROUTES" section in server.js
+app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/home-business', require('./routes/homeBusinessRoutes'));
 
 

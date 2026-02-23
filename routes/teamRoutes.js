@@ -33,4 +33,21 @@ router.post('/', async (req, res) => {
   }
 });
 
+// DELETE /api/team/:memberId
+router.delete('/:memberId', async (req, res) => {
+  try {
+    const team = await Team.getSingleton();
+    
+    // Filter out the member that matches the ID sent in the URL
+    team.members = team.members.filter(
+      (member) => member._id.toString() !== req.params.memberId
+    );
+    
+    await team.save();
+    res.json({ message: "Team member deleted successfully", team });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;

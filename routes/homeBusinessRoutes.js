@@ -19,14 +19,17 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST /api/home-business - Update entire section
+// POST /api/home-business - Update entire section (FIXED FOR DELETIONS)
 router.post('/', async (req, res) => {
   try {
-    const data = await HomeBusiness.findOneAndUpdate(
-      {}, 
-      { $set: req.body },
-      { new: true, upsert: true, runValidators: true }
-    );
+    const data = await HomeBusiness.getSingleton();
+    
+    // Forcefully overwrite the fields, ensuring the array is actually replaced
+    data.sectionTitle = req.body.sectionTitle;
+    data.sectionSubtitle = req.body.sectionSubtitle;
+    data.businesses = req.body.businesses || []; 
+    
+    await data.save();
     res.json(data);
   } catch (error) {
     console.error('Error updating Home Business data:', error);

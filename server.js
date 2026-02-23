@@ -72,6 +72,7 @@ app.use('/api/dashboard', require('./routes/dashboardRoutes')); // Dashboard rou
 app.use('/api/settings', require('./routes/settingsRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/home-business', require('./routes/homeBusinessRoutes'));
+app.use('/api/expertise', require('./routes/expertiseRoutes'));
 
 
 const PORT = process.env.PORT || 5000;

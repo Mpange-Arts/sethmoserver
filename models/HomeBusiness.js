@@ -5,7 +5,7 @@ const BusinessItemSchema = new mongoose.Schema({
   title: { type: String, required: true },
   logo: { type: String, default: '' }, // URL from Cloudinary
   image: { type: String, default: '' } // URL from Cloudinary
-});
+}, { _id: false }); // <-- THIS IS THE MAGIC FIX! Stops Mongoose from crashing over the 'id' field
 
 const HomeBusinessSchema = new mongoose.Schema({
   sectionTitle: { 

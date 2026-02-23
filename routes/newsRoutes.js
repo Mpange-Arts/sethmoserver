@@ -30,4 +30,14 @@ router.post('/', async (req, res) => {
   }
 });
 
+// DELETE: Remove a specific article permanently
+router.delete('/:id', async (req, res) => {
+  try {
+    await News.findByIdAndDelete(req.params.id);
+    res.json({ message: "Article deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;

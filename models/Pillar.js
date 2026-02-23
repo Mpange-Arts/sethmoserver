@@ -5,7 +5,7 @@ const PillarItemSchema = new mongoose.Schema({
   title: String,
   desc: String,
   image: String
-});
+}, { _id: false }); // Stops Mongoose from overriding your string IDs
 
 const PillarSchema = new mongoose.Schema({
   pillars: [PillarItemSchema]

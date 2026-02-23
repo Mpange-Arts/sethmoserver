@@ -16,11 +16,12 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const data = await Pillar.getSingleton();
-    data.pillars = req.body.pillars;
+    data.pillars = req.body.pillars || []; // Fallback to empty array
     await data.save();
     res.json(data);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("🔥 PILLAR SAVE ERROR:", err); // Added error logging for Render
+    res.status(500).json({ error: err.message, details: err });
   }
 });
 

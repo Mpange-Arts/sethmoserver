@@ -44,8 +44,8 @@ app.use(cors({
   credentials: true // Very important if you ever use cookies or secure sessions for login
 }));
 
-app.use(express.json({ limit: '50mb' })); // Support for base64 image uploads
-app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+app.use(express.json({ limit: '100mb' })); // Support for base64 image uploads
+app.use(express.urlencoded({ extended: true, limit: '100mb' }));
 
 // Basic Route to test server is running
 app.get('/', (req, res) => {
@@ -73,6 +73,7 @@ app.use('/api/settings', require('./routes/settingsRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/home-business', require('./routes/homeBusinessRoutes'));
 app.use('/api/expertise', require('./routes/expertiseRoutes'));
+app.use('/api/messages', require('./routes/messageRoutes'));
 
 
 const PORT = process.env.PORT || 5000;
@@ -90,3 +91,4 @@ app.listen(PORT, () => {
     }
   });
 });
+

@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 
 const ExpertiseItemSchema = new mongoose.Schema({
+  slug: { type: String, required: true }, // Added slug (e.g., 'agriculture')
   title: { type: String, required: true },
-  description: { type: String, required: true },
-  image: { type: String, default: '' } // Can hold a Cloudinary URL or an icon name
-}, { _id: false }); // Prevents Mongoose from crashing on updates
+  description: { type: String, required: true }, // The short summary
+  details: { type: String, default: '' }, // Added details (The long paragraph)
+  image: { type: String, default: '' } 
+}, { _id: false }); 
 
 const ExpertiseSchema = new mongoose.Schema({
   sectionTitle: { type: String, default: 'Our Expertise' },
